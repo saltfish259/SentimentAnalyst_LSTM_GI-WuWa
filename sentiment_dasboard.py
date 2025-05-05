@@ -18,7 +18,7 @@ import json
 
 from utils import show_game_description, show_sentiment_charts, show_wordclouds, analyze_user_input
 
-model = load_model("model/sentiment_model.keras")
+model = load_model("Model/sentiment_model.keras")
 with open("model/tokenizer_lstm.json") as f:
     tokenizer_json = json.load(f)
 tokenizer = tokenizer_from_json(tokenizer_json)
