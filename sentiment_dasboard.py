@@ -28,9 +28,9 @@ game_choice = st.sidebar.selectbox("🎮 Pilih Game", ["Genshin Impact", "Wuther
 section = st.sidebar.radio("📌 Pilih Section", ["Section 1: Analisa", "Section 2: Word Cloud", "Section 3: Uji Coba Model"])
 
 if game_choice == "Genshin Impact":
-    df = pd.read_csv("data/Sentiment_Genshin.csv")
+    df = pd.read_csv("Data/Sentiment_Genshin.csv")
 else:
-    df = pd.read_csv("data/Sentiment_Wuthering.csv")
+    df = pd.read_csv("Data/Sentiment_Wuthering.csv")
 
 st.title("Analisis Sentimen Komentar Game 🎮")
 st.markdown("""
