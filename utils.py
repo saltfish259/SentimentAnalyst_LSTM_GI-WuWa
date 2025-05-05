@@ -14,6 +14,8 @@ import pandas as pd
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 import numpy as np
 
+MAX_LEN = 500
+
 def show_game_description(game):
     st.subheader(f"Tentang {game}")
     if game == "Genshin Impact":
