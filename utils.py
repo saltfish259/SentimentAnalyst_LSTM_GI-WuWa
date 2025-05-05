@@ -22,7 +22,7 @@ def show_game_description(game):
         st.write("Wuthering Waves adalah action RPG yang mengedepankan dunia terbuka dan sistem pertarungan dinamis dari Kuro Games.")
 
 def show_sentiment_charts(df, game):
-    sentiment_counts = df['sentiment'].value_counts()
+    sentiment_counts = df['Predicted_Sentiment'].value_counts()
     labels = ['Positif', 'Negatif']
     values = [sentiment_counts.get(1, 0), sentiment_counts.get(0, 0)]
 
