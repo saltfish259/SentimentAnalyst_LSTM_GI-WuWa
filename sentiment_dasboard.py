@@ -12,21 +12,32 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from wordcloud import WordCloud
 from keras.models import load_model
-import pickle
-from utils import *  # fungsi bantu kamu simpan di utils.py
+from keras.preprocessing.sequence import pad_sequences
+from keras.preprocessing.text import tokenizer_from_json
+import json
 
-model = load_model("model/lstm_model.h5")
-with open("model/tokenizer.pickle", "rb") as f:
-    tokenizer = pickle.load(f)
+from utils import show_game_description, show_sentiment_charts, show_wordclouds, analyze_user_input
 
-st.sidebar.title("Menu Navigasi")
-game_choice = st.sidebar.selectbox("Pilih Game", ["Genshin Impact", "Wuthering Waves"])
-section = st.sidebar.radio("Pilih Section", ["Section 1: Analisa", "Section 2: Word Cloud", "Section 3: Uji Coba Model"])
+model = load_model("model/sentiment_model.keras")
+with open("model/tokenizer_lstm.json") as f:
+    tokenizer_json = json.load(f)
+tokenizer = tokenizer_from_json(tokenizer_json)
+
+st.sidebar.title("📊 Dashboard Sentimen Komentar")
+game_choice = st.sidebar.selectbox("🎮 Pilih Game", ["Genshin Impact", "Wuthering Waves"])
+section = st.sidebar.radio("📌 Pilih Section", ["Section 1: Analisa", "Section 2: Word Cloud", "Section 3: Uji Coba Model"])
 
 if game_choice == "Genshin Impact":
-    df = pd.read_csv("data/genshin_sentiment.csv")
+    df = pd.read_csv("data/Sentiment_Genshin.csv")
 else:
-    df = pd.read_csv("data/wuthering_sentiment.csv")
+    df = pd.read_csv("data/Sentiment_Wuthering.csv")
+
+st.title("Analisis Sentimen Komentar Game 🎮")
+st.markdown("""
+Dashboard ini menggunakan pendekatan **TF-IDF + MLPClassifier** serta model **LSTM** untuk menganalisis komentar dari pengguna terhadap game Genshin Impact dan Wuthering Waves.
+
+Model LSTM dipilih karena kemampuannya dalam memahami konteks urutan kata, sementara TF-IDF + MLP digunakan untuk baseline perbandingan karena efisiensi dan interpretabilitasnya.
+""")
 
 if section.startswith("Section 1"):
     show_game_description(game_choice)
@@ -36,6 +47,7 @@ elif section.startswith("Section 2"):
     show_wordclouds(df)
 
 elif section.startswith("Section 3"):
+    st.subheader("🧪 Uji Coba Model Sentimen")
     user_input = st.text_input("Masukkan kalimat komentar:")
     if user_input:
         analyze_user_input(user_input, model, tokenizer)

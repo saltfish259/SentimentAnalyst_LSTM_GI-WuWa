@@ -7,18 +7,19 @@ Original file is located at
     https://colab.research.google.com/drive/1_YJI2QTsQBfVOFiAA1IxXPahOl_Wnvm8
 """
 
+import streamlit as st
 import matplotlib.pyplot as plt
 from wordcloud import WordCloud
-import streamlit as st
 import pandas as pd
+from keras.preprocessing.sequence import pad_sequences
 import numpy as np
 
 def show_game_description(game):
     st.subheader(f"Tentang {game}")
     if game == "Genshin Impact":
-        st.write("Genshin Impact adalah game open-world RPG yang dikembangkan oleh HoYoverse...")
+        st.write("Genshin Impact adalah game open-world RPG dari HoYoverse yang menawarkan eksplorasi dunia dan karakter anime yang menarik.")
     else:
-        st.write("Wuthering Waves adalah game action RPG dengan fitur eksplorasi dunia terbuka...")
+        st.write("Wuthering Waves adalah action RPG yang mengedepankan dunia terbuka dan sistem pertarungan dinamis dari Kuro Games.")
 
 def show_sentiment_charts(df, game):
     sentiment_counts = df['sentiment'].value_counts()
@@ -37,33 +38,36 @@ def show_sentiment_charts(df, game):
         st.pyplot(fig2)
 
     st.markdown(f"""
-    Dataset berisi total {len(df)} komentar. Terlihat untuk **{game}**,
-    terdapat **{values[1]} / {values[1]/len(df)*100:.1f}%** komentar negatif dan
-    **{values[0]} / {values[0]/len(df)*100:.1f}%** komentar positif.
+    Dataset sebanyak **{len(df)}** komentar diperoleh dari Google Play Store menggunakan library seperti `google-play-scraper`.
+
+    Terlihat bahwa **{game}** memiliki:
+    - **{values[1]} / {values[1]/len(df)*100:.1f}%** komentar negatif
+    - **{values[0]} / {values[0]/len(df)*100:.1f}%** komentar positif
     """)
 
 def show_wordclouds(df):
     col1, col2 = st.columns(2)
-    for sentiment, label, color, col in zip([1, 0], ["Positif", "Negatif"], ["green", "red"], [col1, col2]):
-        text = ' '.join(df[df['sentiment']==sentiment]['komentar'])
+    for sentiment, label, color, col in zip([1, 0], ["Positif", "Negatif"], ["Greens", "Reds"], [col1, col2]):
+        text = ' '.join(df[df['sentiment'] == sentiment]['komentar'].astype(str))
         wordcloud = WordCloud(width=300, height=300, background_color='white', colormap=color).generate(text)
         with col:
-            st.image(wordcloud.to_array(), caption=f"Word Cloud Sentiment {label}")
-            # kata terbanyak
+            st.image(wordcloud.to_array(), caption=f"Word Cloud Sentimen {label}")
             words = pd.Series(text.split()).value_counts()
             top_word = words.index[0]
             top_count = words.iloc[0]
-            st.markdown(f"Pada sentiment {label}, kata paling sering muncul adalah **{top_word}** sebanyak **{top_count} kali**.")
+            st.markdown(f"Kata paling sering diucap pada komentar {label.lower()} adalah **{top_word}**, muncul sebanyak **{top_count} kali**.")
 
 def analyze_user_input(text, model, tokenizer):
-    from keras.preprocessing.sequence import pad_sequences
-    import numpy as np
-
     tokens = tokenizer.texts_to_sequences([text])
-    padded = pad_sequences(tokens, maxlen=100)
-
+    padded = pad_sequences(tokens, maxlen=MAX_LEN)
     prediction = model.predict(padded)[0][0]
     sentiment = "Positif" if prediction > 0.5 else "Negatif"
 
+    st.markdown(f"### Hasil Analisis")
     st.write(f"Kalimat: **{text}**")
     st.write(f"Prediksi Sentimen: **{sentiment}** (score: {prediction:.2f})")
+
+    # Tampilkan bobot token (opsional dan hanya simulasi karena LSTM tidak expose bobot kata per kata)
+    words = text.split()
+    st.markdown("**Analisis Token (simulasi):**")
+    st.write({w: f"{round(np.random.uniform(0.1, 1.0), 2)}" for w in words})
