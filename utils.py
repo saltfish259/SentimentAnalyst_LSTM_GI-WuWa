@@ -50,7 +50,7 @@ def show_sentiment_charts(df, game):
 def show_wordclouds(df):
     col1, col2 = st.columns(2)
     for sentiment, label, color, col in zip([1, 0], ["Positif", "Negatif"], ["Greens", "Reds"], [col1, col2]):
-        text = ' '.join(df[df['sentiment'] == sentiment]['komentar'].astype(str))
+        text = ' '.join(df[df['Predicted_Sentiment'] == sentiment]['komentar'].astype(str))
         wordcloud = WordCloud(width=300, height=300, background_color='white', colormap=color).generate(text)
         with col:
             st.image(wordcloud.to_array(), caption=f"Word Cloud Sentimen {label}")
