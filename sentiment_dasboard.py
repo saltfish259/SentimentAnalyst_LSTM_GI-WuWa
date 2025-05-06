@@ -34,7 +34,11 @@ else:
 
 st.title("Analisis Sentimen Komentar Game 🎮")
 st.markdown("""
+**LSTM (Long Short-Term Memory)** adalah jenis jaringan saraf yang efektif dalam memahami konteks kalimat, cocok untuk analisis sentimen.
 
+**NLTK (Natural Language Toolkit)** membantu dalam preprocessing teks, seperti tokenisasi dan penghapusan kata yang tidak penting (stopwords).
+
+Kombinasi LSTM dan NLTK memungkinkan analisis sentimen yang akurat dan efisien.
 """)
 
 if section.startswith("Section 1"):
@@ -46,13 +50,6 @@ elif section.startswith("Section 2"):
 
 elif section.startswith("Section 3"):
     st.subheader("🧪 Uji Coba Model Sentimen")
-    st.markdown("""
-**LSTM (Long Short-Term Memory)** adalah jenis jaringan saraf yang efektif dalam memahami konteks kalimat, cocok untuk analisis sentimen.
-
-**NLTK (Natural Language Toolkit)** membantu dalam preprocessing teks, seperti tokenisasi dan penghapusan kata yang tidak penting (stopwords).
-
-Kombinasi LSTM dan NLTK memungkinkan analisis sentimen yang akurat dan efisien.
-""")
     user_input = st.text_input("Masukkan kalimat komentar:")
     if user_input:
         analyze_user_input(user_input, model, tokenizer)
