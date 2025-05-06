@@ -1,5 +1,7 @@
 # Sentiment Analyst Using LSTM - Razif Zulvikar Hatuwe
 
+🔗 **Link Dashboard**: [Klik di sini](https://sentimentanalystlstmgi-wuwa-wwvypmgve3sitf8mryizy3.streamlit.app/)
+
 ## A. Domain Proyek
 
 ### Latar Belakang
