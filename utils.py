@@ -19,9 +19,9 @@ MAX_LEN = 500
 def show_game_description(game):
     st.subheader(f"Tentang {game}")
     if game == "Genshin Impact":
-        st.write("Genshin Impact adalah game open-world RPG dari HoYoverse yang menawarkan eksplorasi dunia dan karakter anime yang menarik.")
+        st.write("Genshin Impact adalah game action RPG open-world besutan HoYoverse yang membawa pemain menjelajahi dunia fantasi bernama Teyvat. Dengan visual bergaya anime, sistem pertarungan berbasis elemen, serta beragam karakter unik yang bisa dimainkan, game ini menonjolkan eksplorasi, cerita mendalam, dan gameplay yang mendukung mode single-player maupun co-op.")
     else:
-        st.write("Wuthering Waves adalah action RPG yang mengedepankan dunia terbuka dan sistem pertarungan dinamis dari Kuro Games.")
+        st.write("Wuthering Waves adalah game action RPG open-world dari Kuro Games yang menawarkan pengalaman bermain dengan sistem pertarungan cepat dan responsif. Berlatar di dunia pasca-apokaliptik yang luas, game ini menggabungkan eksplorasi vertikal, desain karakter yang memikat, dan elemen sci-fi untuk menciptakan nuansa berbeda dibandingkan RPG open-world lainnya.")
 
 def show_sentiment_charts(df, game):
     sentiment_counts = df['Predicted_Sentiment'].value_counts()
