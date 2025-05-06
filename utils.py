@@ -69,7 +69,6 @@ def analyze_user_input(text, model, tokenizer):
     st.write(f"Kalimat: **{text}**")
     st.write(f"Prediksi Sentimen: **{sentiment}** (score: {prediction:.2f})")
 
-    # Tampilkan bobot token (opsional dan hanya simulasi karena LSTM tidak expose bobot kata per kata)
     words = text.split()
     st.markdown("**Analisis Token (simulasi):**")
     st.write({w: f"{round(np.random.uniform(0.1, 1.0), 2)}" for w in words})
