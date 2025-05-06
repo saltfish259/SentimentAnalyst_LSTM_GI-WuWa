@@ -34,9 +34,23 @@ else:
 
 st.title("Analisis Sentimen Komentar Game 🎮")
 st.markdown("""
-Dashboard ini menggunakan pendekatan **TF-IDF + MLPClassifier** serta model **LSTM** untuk menganalisis komentar dari pengguna terhadap game Genshin Impact dan Wuthering Waves.
+Teknologi yang Digunakan
 
-Model LSTM dipilih karena kemampuannya dalam memahami konteks urutan kata, sementara TF-IDF + MLP digunakan untuk baseline perbandingan karena efisiensi dan interpretabilitasnya.
+Apa itu LSTM?
+
+LSTM (Long Short-Term Memory) adalah jenis jaringan saraf tiruan berbasis Recurrent Neural Network (RNN) yang dirancang untuk memproses data berurutan seperti teks. Keunggulan LSTM terletak pada kemampuannya dalam mengingat informasi jangka panjang dan menghindari permasalahan umum pada RNN seperti vanishing gradient. Hal ini sangat penting dalam analisis sentimen karena konteks dari suatu kata sangat dipengaruhi oleh kata-kata sebelumnya.
+
+Apa itu NLTK?
+
+NLTK (Natural Language Toolkit) adalah salah satu pustaka Python paling populer dalam pemrosesan bahasa alami. NLTK menyediakan berbagai fitur seperti tokenisasi, stopword removal, stemming, dan lainnya yang memudahkan proses preprocessing data teks sebelum dianalisis lebih lanjut.
+
+Mengapa LSTM dan NLTK Cocok untuk Analisis Sentimen?
+
+LSTM efektif dalam memahami struktur kalimat dan konteks emosional dari teks, menjadikannya cocok untuk membedakan antara komentar positif dan negatif.
+
+NLTK membantu menyiapkan data teks dalam bentuk yang bersih dan terstruktur, yang penting untuk meningkatkan akurasi model.
+
+Kombinasi dari keduanya memungkinkan proses analisis sentimen berjalan lebih akurat dan efisien.
 """)
 
 if section.startswith("Section 1"):
